@@ -1,4 +1,6 @@
 # MPGIL
-We proposed a novel depth partial multi-omics learning model, MPGIL(Multi-channel Partial Graph Integration Learning) for cancer subtypes. MPGIL has two main components. Firstly, it obtains more lateral adjacency information between samples within the omics through the multi-channel graph autoencoders based on high-order proximity. In order to reduce the negative impact of missing samples, the weighted fusion layer is introduced to replace the concatenate layer to learn all consensus representation across multi-omics data. Secondly, a classifier is introduced to ensure that the consensus representation is representative for clustering. MPGIL is implemented in Python3.9.7 environment. Please install the relevant dependency packages in requirements before you run it.  
+
+
+A novel depth partial cancer multi-omics learning model, MPGIL(Multi-channel Partial Graph Integration Learning) for cancer subtypes. The method mainly includes two parts: one is the graph autoencoders (GAE) based on high-order proximity and incorporating missing information, another is a classifier. MPGIL is implemented in Python3.9.7 environment. Please install the relevant dependency packages in requirements before you run it.  
 
 If you have any questions, please contact me via e-mail: caoqq98@163.com.
