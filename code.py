@@ -15,11 +15,13 @@ from tensorflow.keras.utils import plot_model
 import scipy.io
 from sklearn import metrics
 
+cluster=num #Num is the number of cancer subtype recognition clusters. In AML cancer, num=4.
 ff = 0
 foldss = scipy.io.loadmat('.../data/AML_folds.mat')
 folds = foldss['folds']
 we = folds[0,ff]
 we=we.astype(np.float32)
+
 
 data1=pd.read_csv(".../data/extended_data/exp_e.CSV",index_col=0);
 data2=pd.read_csv(".../data/extended_data/meth_e.CSV",index_col=0);
@@ -100,7 +102,7 @@ def Network():
                                               name='reconstructionX3')(hdx1)
     
      # classifier branch
-    n_cluster=4
+    n_cluster=cluster
     classifier_layer = tf.keras.layers.Dense(n_cluster, \
                                                    activation=tf.nn.softmax,
                                                    name='classification')(z_mean) 
@@ -145,7 +147,7 @@ def cluster(data1,data2,data3,n_cluster):
         dummy_label = to_categorical(clustering_label)
         return dummy_label
 
-dummy_label1=cluster(data1,data2,data3,n_cluster=4)
+dummy_label1=cluster(data1,data2,data3,n_cluster=cluster)
 
 his = model.fit([data1,data2,data3,adj1,adj2,adj3],
                           {'classification': dummy_label1,
@@ -159,7 +161,7 @@ output=model.predict([data1,data2,data3,adj1,adj2,adj3],batch_size=197)
 classes=output[0]
 Z=output[1]
  
-labels = KMeans(n_clusters=4, n_init=150).fit_predict(Z)
+labels = KMeans(n_clusters=cluster, n_init=150).fit_predict(Z)
 labels1=pd.DataFrame(labels)
 
 out_file = '.../labels.CSV'
